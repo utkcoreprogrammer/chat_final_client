@@ -1,0 +1,8 @@
+<div class="jumbotron text-center">
+
+
+    <div *ngIf="userService.isLoggedIn()" class="container">
+        <h4 class="welcome">Welcome, {{ userService.getLoggedInUser().username }}</h4>
+        <button class="btn btn-success" routerLink="/single_chat">Start Chatting</button>
+    </div>
+</div>

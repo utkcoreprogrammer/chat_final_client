@@ -1,0 +1,27 @@
+
+     <header><h2 style="text-align: center;">Welcome to WeChat</h2> </header>
+ <div class="container">
+      <form [formGroup]="loginForm" id="loginForm" (ngSubmit) = "loginHandler()">
+			<h3>Login Form</h3>
+			<div class="form-group">
+				 <label>
+                    <span>Username</span>
+					<input type="email" class="form-control" formControlName="email" placeholder="Enter your Email"/>
+				</label>
+			</div>
+			<div class="form-group">
+				 <label>
+                    <span>Password</span>
+					<input type="password" class="form-control" formControlName="password" placeholder="Enter your Password" />
+				</label>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-sm btn-primary"> Log In 
+				</button> 
+			</div>
+		
+	</form>
+</div>
+
+
+   

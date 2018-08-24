@@ -1,0 +1,48 @@
+#chatlogo
+{
+height: 70px;
+width: 100px;
+}
+
+#mainnav
+{
+	margin-left: 10px;
+}
+
+ul li
+{
+	margin-left: 10px;
+	vertical-align: middle;
+}
+
+#signupForm 
+{
+	text-align: center;
+	
+}
+
+#loginForm 
+{
+	text-align: center;
+	
+}
+
+#messagediv
+{
+	text-align: center;	
+}
+
+#usernamediv
+{
+	text-align: center;	
+}
+
+#buttondiv
+{
+	text-align: center;
+}
+
+#groupdiv
+{
+	text-align: center;
+}

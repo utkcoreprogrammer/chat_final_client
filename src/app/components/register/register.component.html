@@ -1,0 +1,58 @@
+
+    
+     <header><h2 style="text-align: center;">Welcome to WeChat</h2> </header>
+   
+    <div class="container">
+
+       
+ 
+
+            <form [formGroup]="signupForm" novalidate="novalidate" id="signupForm">
+           
+                    <h3>Signup Form</h3>
+                <div class="form-group">
+                    <label>
+                    <span>Username</span>
+                    <input type="text" class="form-control" formControlName="username" /></label>
+                </div>
+
+          
+    
+                <div class="form-group">
+                    <label>
+                    <span>EmailId</span>
+                    <input type="email" class="form-control" formControlName="email" />
+                    </label>
+                </div>
+
+                    
+
+                <div class="form-group">
+                    <label><span>Password</span>
+                    <input type="password" class="form-control" formControlName="password"/></label>
+                </div>
+
+       
+
+                <div class="form-group">
+                    <label><span> Confirm Password</span>
+                    <input type="password"  class="form-control"/>
+                    </label>
+                </div>
+
+        
+                <br/>
+
+         
+
+                 <div class="form-group" style="text-align: center;">
+                <button type="button" class="btn btn-sm btn-primary" (click)="createUser()"> Register </button>
+            </div>
+                    
+              
+
+         
+            </form>
+ 
+
+    </div>

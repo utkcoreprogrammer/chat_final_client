@@ -1,0 +1,18 @@
+
+  <nav class="navbar" style="background-color: #87CEEB;">
+    <div class="container-fluid">
+        <div class="navbar-header pull-left">
+          <img id = "chatlogo" alt="Chat Logo" src="../assets/images/chatlogo.png" /> 
+        </div>
+          <ul class="nav navbar-nav" id="mainnav">
+            <li class="active"><a [routerLink]= "['login']" class="navbar-brand"> Login </a> </li>
+            <li><a [routerLink]= "['register']" class="navbar-brand"> Signup </a></li>
+            <li><a [routerLink]= "['single_chat']" class="navbar-brand"> single_chat </a></li>
+            <li><a [routerLink]= "['group_chat']" class="navbar-brand"> group_chat </a></li>
+        </ul>
+                  
+    </div>
+  <!-- Navbar content -->
+  </nav>
+
+<router-outlet></router-outlet>
