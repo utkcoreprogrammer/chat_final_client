@@ -2,9 +2,14 @@
     <h2>{{ username }}</h2>
     <span><i *ngIf="isTyping" class="isTyping">typing...</i></span>
     <div id="chat-window">
-        <div *ngFor="let item of messageArray">
-            <p [class.userMessage] = "item.user == userService.getLoggedInUser().username" [class.secUserMessage]="item.user != userService.getLoggedInUser().username">{{ item.message }}</p>                
-        </div>
+        <ul style="list-style-type: none;">
+        <li *ngFor="let item of chatHistory">
+           <b> {{item.user}} </b> :  {{item.message}}
+        </li>
+        </ul>
+
+            <!-- <p [class.userMessage] = "item.user == userService.getLoggedInUser().username" [class.secUserMessage]="item.user != userService.getLoggedInUser().username">{{ item.message }}</p>                 -->
+        
         <!-- <div id="feedback"></div> -->
     </div>
     <input (keypress)="typing()" [(ngModel)]="message" name="message" type="text" placeholder="Message" />            

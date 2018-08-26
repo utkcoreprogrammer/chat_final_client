@@ -14,20 +14,40 @@ export class GroupChatComponent implements OnInit {
   private email : String
   private chatroom;
   private message: String;
-  messageArray: Array <{user: String, message: String}> = [];
+  private messageArray: Array <{user: String, message: String}> = [];
+  private messageData : any =[];
+  private chatHistory : any = [];
   private isTyping = false;
 
   constructor(private route: ActivatedRoute,
     private userService: UserService,
     private chatService: ChatService,
     private router: Router) { 
-	this.chatService.newMessageReceived().subscribe(data => {
-      this.messageArray.push(data);
-      this.isTyping = false;
-    });
+    this.chatService.getChatHistory().subscribe(messages => {
+        let keys = Object.keys(messages);
+        for(var key of keys){
+          this.chatHistory.push(messages[key]);
+        }  
+    this.chatService.newMessageReceived().subscribe(data => {
+        console.log("data received", data);
+        this.chatHistory.push(data);
+        this.isTyping = false;
+        console.log("message data updated", this.messageData);
+        });
+        console.log("chat history" , this.chatHistory);
+        console.log("chat history" , this.messageData);
+        console.log("messages" , messages);
+  
+  
+        
+      });
+
     this.chatService.receivedTyping().subscribe(bool => {
       this.isTyping = bool.isTyping;
+      
     });
+  
+
 
 
 
@@ -54,7 +74,7 @@ export class GroupChatComponent implements OnInit {
     console.log("messages>>>", messages);
     this.messageArray = messages;
   	})
-
+   
     });
   
     
@@ -62,6 +82,7 @@ export class GroupChatComponent implements OnInit {
    sendMessage() {
     this.chatService.sendMessage({room: this.chatroom, user: this.userService.getLoggedInUser().username, message: this.message});
     this.message = '';
+    this.isTyping = false;
   }
     typing() {
     this.chatService.typing({room: this.chatroom, user: this.userService.getLoggedInUser().username});
