@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Rx";
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { ChatService } from '../../services/chat.service';
 import { ToastService } from '../../services/toast.service';
 
 
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private authService: AuthService, 
     private toastrService : ToastService, 
+    private chatService : ChatService,
     private router : Router, 
     private route: ActivatedRoute) { }
 
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
       console.log("data>>>>>>" ,data);
       if (user.isPresent) {
         if ( user.correctPassword) {
+          console.log("data.user from login component !!!!!!!!!", data.user);
           localStorage.setItem('currentUser', JSON.stringify(data.user));
           this.router.navigate(['home']);
         } 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ChatService } from '../../services/chat.service';
+import * as io from 'socket.io-client';
+
 
 
 @Component({
@@ -18,16 +20,21 @@ export class GroupChatComponent implements OnInit {
   private messageData : any =[];
   private chatHistory : any = [];
   private isTyping = false;
-
   constructor(private route: ActivatedRoute,
     private userService: UserService,
     private chatService: ChatService,
     private router: Router) { 
+
+    this.chatService.isOnline().subscribe(user =>
+    {
+      console.log("is online event listening @@@@@@@", user);
+    })
+
     this.chatService.getChatHistory().subscribe(messages => {
         let keys = Object.keys(messages);
         for(var key of keys){
           this.chatHistory.push(messages[key]);
-        }  
+        }      
     this.chatService.newMessageReceived().subscribe(data => {
         console.log("data received", data);
         this.chatHistory.push(data);
@@ -58,26 +65,22 @@ export class GroupChatComponent implements OnInit {
   	{
     this.username = this.route.snapshot.queryParamMap.get('name');
     this.email = this.route.snapshot.queryParamMap.get('email');  
-    console.log("from group chat", this.username)
   	const currentUser = this.userService.getLoggedInUser();
-    console.log("from group chat>currentUser", currentUser.username)
+    console.log("from group chat>isOnline", users)
     if (currentUser.username < this.username) {
       this.chatroom = currentUser.username.concat(this.username);
-      console.log("chatroom if>>>>", this.chatroom);
     } else {
       this.chatroom = this.username.concat(currentUser.username);
-      console.log("chatroom else>>>>", this.chatroom);
 
     }
     this.chatService.joinRoom({user: this.userService.getLoggedInUser().username, room: this.chatroom});
-    this.userService.getChatRoomsChat(this.chatroom).subscribe(messages => {
-    console.log("messages>>>", messages);
-    this.messageArray = messages;
-  	})
+   //  this.userService.getChatRoomsChat(this.chatroom).subscribe(messages => {
+   //  console.log("messages>>>", messages);
+   //  this.messageArray = messages;
+  	// })
    
     });
-  
-    
+   
   }
    sendMessage() {
     this.chatService.sendMessage({room: this.chatroom, user: this.userService.getLoggedInUser().username, message: this.message});

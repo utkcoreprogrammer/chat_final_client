@@ -8,8 +8,14 @@ import { environment } from '../../environments/environment';
 export class ChatService {
 	private baseUrl:string = environment.apiUrl;
 	private socket = io.connect('http://localhost:9090'); 
+
     // userNames : any = [];
-    constructor(private http:  HttpClient) { }
+    constructor(private http:  HttpClient) { 
+    // this.socket.on("logged_in_user",(data)=>{
+    //   console.log("data in constructor ###################3",data)
+    // })    
+
+    }
         // this.socket.on('connect',()=>{
         //     console.log("Client connected.......")
         // })
@@ -18,9 +24,8 @@ export class ChatService {
         //     let newUsername = new_user.username
         //     console.log("new_user", newUsername);
         // })
-    
    
-  
+    
       
  
 
@@ -49,6 +54,7 @@ export class ChatService {
       this.socket.on('new message', (data) => {
         observer.next(data);
       });
+
       return () => {
 
       };
@@ -86,6 +92,21 @@ export class ChatService {
     })
     return observable;
   } 
+
+  isOnline()
+  {
+      const observable = new Observable<{username : String, email : String, isOnline : boolean}>(observer => {
+      this.socket.on('logged_in_user', (user) => {
+        console.log("user from chat service is online $$$$$$$", user);
+        observer.next(user);
+      });
+      return () => {
+
+      };
+      
+    })
+    return observable;
+  }
     
 
 

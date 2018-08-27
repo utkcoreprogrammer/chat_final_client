@@ -11,11 +11,13 @@ import { Router, ActivatedRoute } from '@angular/router'
 export class PersonalChatComponent implements OnInit {
 	userNames : any = []
   Users
+  isOnline : boolean;
   constructor(private router : Router, 
     private route : ActivatedRoute, 
     private userService : UserService, 
-    private chatService: ChatService
-) { }
+    private chatService: ChatService) { 
+
+ }
 
   ngOnInit() {
   	this.userService.getAllUsers().subscribe(users =>
@@ -26,12 +28,10 @@ export class PersonalChatComponent implements OnInit {
   		this.Users= users
   		//.json();
   	})
+    const currentUser = this.userService.getLoggedInUser();
+    this.isOnline = currentUser.isOnline;
+
  
-  }
-    logOut = function () {
-    localStorage.removeItem('currentUser');
-    this.router.navigate(['login']);
-    location.reload(true);
   }
 
 }

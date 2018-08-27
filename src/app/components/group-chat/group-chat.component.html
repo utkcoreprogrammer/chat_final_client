@@ -1,5 +1,5 @@
 <div id="mario-chat">
-    <h2>{{ username }}</h2>
+    <h2>{{ userService.getLoggedInUser().username }} {{ username }}</h2>
     <span><i *ngIf="isTyping" class="isTyping">typing...</i></span>
     <div id="chat-window">
         <ul style="list-style-type: none;">

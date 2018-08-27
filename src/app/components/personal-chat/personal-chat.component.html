@@ -8,14 +8,15 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of Users">
-            <td *ngIf="user.username != userService.getLoggedInUser().username">{{ user.username }}</td>
+            <td *ngIf="user.username != userService.getLoggedInUser().username">{{ user.username }}</td> 
+            <td> {{ userService.getLoggedInUser().isOnline }} </td>
             <td *ngIf="user.username != userService.getLoggedInUser().username"><button class="btn btn-success button" [queryParams]="{ name: user.username, email: user.email }" routerLink= "/group_chat">Chat</button></td>
           </tr>   
         </tbody>
       </table>
 
     <div *ngIf = "userService.isLoggedIn()">
-      <button id="logOut" (click) = "logOut()" >LogOut</button>
+      <button id="logOut" (click) = "userService.logOut()" >LogOut</button>
     </div> 
 </div>
    <div *ngIf = "!userService.isLoggedIn()">
