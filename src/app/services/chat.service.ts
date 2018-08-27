@@ -9,7 +9,7 @@ export class ChatService {
 	private baseUrl:string = environment.apiUrl;
 	private socket = io.connect('http://localhost:9090'); 
     // userNames : any = [];
-    constructor(private http:  HttpClient) { }
+    constructor(private http:  HttpClient) {
         // this.socket.on('connect',()=>{
         //     console.log("Client connected.......")
         // })
@@ -18,14 +18,15 @@ export class ChatService {
         //     let newUsername = new_user.username
         //     console.log("new_user", newUsername);
         // })
-    
-   
-  
-      
+        // this.socket.on('All_Users', (users) =>
+        // {
+        //     console.log("users", users);
+        //     this.userNames = users
+        // })
  
 
 
-    
+    }
 
     // public send(message : any)
     // {
@@ -40,7 +41,7 @@ export class ChatService {
     this.socket.emit('join', data);
   }
     sendMessage(data) {
-     console.log("message>>>>", data);
+     console.log("message>>>>", data); 
     this.socket.emit('message', data);
   }
 
@@ -50,7 +51,7 @@ export class ChatService {
         observer.next(data);
       });
       return () => {
-
+        this.socket.disconnect();
       };
     });
     return observable;
@@ -59,33 +60,16 @@ export class ChatService {
     const observable = new Observable<{ isTyping: boolean}>(observer => {
       this.socket.on('typing', (data) => {
         observer.next(data);
-        
       });
       return () => {
-       
+        this.socket.disconnect();
       };
-      
     });
-    
     return observable;
   }
     typing(data) {
     this.socket.emit('typing', data);
   }
-  getChatHistory()
-  {
-    const observable = new Observable<{user : String, message : String}>(observer => {
-      this.socket.on('getMessages', (messages) => {
-        console.log("type of messages" , typeof(messages));
-        observer.next(messages);
-      });
-      return () => {
-
-      };
-      
-    })
-    return observable;
-  } 
     
 
 
