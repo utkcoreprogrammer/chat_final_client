@@ -1,51 +1,52 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { UserService } from '../services/user.service';
+import { UserListService } from '../services/userList.service';
+
 
 @Injectable()
 export class ChatService {
 	private baseUrl:string = environment.apiUrl;
-	private socket = io.connect('http://localhost:9090'); 
+	private socket = io.connect('http://localhost:9090');
+  private username : string;
+  private isOnline : boolean; 
 
-    // userNames : any = [];
-    constructor(private http:  HttpClient) { 
-    // this.socket.on("logged_in_user",(data)=>{
-    //   console.log("data in constructor ###################3",data)
-    // })    
+  constructor(private http:  HttpClient, private userService : UserService,private UserListService : UserListService) { 
+      let that = this;
+      this.userService.getAllUsers().subscribe(users =>{
+      console.log("data from user service $$$$$$$",users);
+      that.UserListService.Users = users
+      console.log("DAta loaded for firsst time in User List service >>>>>>>>>",that.UserListService.Users)
+      this.socket.on("logged_in_user",(onlineUser)=>{
+      console.log("data from chat service $$$$$$$",onlineUser);
+      let index = that.UserListService.Users.findIndex(x=>{return x.email == onlineUser.email})
+      console.log("found index <>>>>>>>>>>>>",index)
+      that.UserListService.Users[index] = onlineUser
+      console.log("DAta updated #### in User List service >>>>>>>>>",that.UserListService.Users)
 
-    }
-        // this.socket.on('connect',()=>{
-        //     console.log("Client connected.......")
-        // })
-        // this.socket.on('LOGGED_IN_USER',(new_user)=>{
-        //     console.log("LOGGED_IN_USER :: Message Received .........", new_user)
-        //     let newUsername = new_user.username
-        //     console.log("new_user", newUsername);
-        // })
+
+
+      }) 
+
+
+      })
+      this.socket.on("log_Out_User", (offlineUser) =>
+      {
+        console.log("offline user event fired!@!@!#@", offlineUser);
+      })
    
-    
-      
- 
 
-
-    
-
-    // public send(message : any)
-    // {
-    // this.socket.emit('message', message)
-    // }
-    // public getUsers()
-    // {
-    //     return this.http.get<any>(`${this.baseUrl}/user/getAllUsers`);
-    // }
-    joinRoom(data) {
+  }
+  joinRoom(data) {
     console.log("data from join room",data);
     this.socket.emit('join', data);
   }
-    sendMessage(data) {
-     console.log("message>>>>", data);
+
+  sendMessage(data) {
+    console.log("message>>>>", data);
     this.socket.emit('message', data);
   }
 
@@ -68,14 +69,14 @@ export class ChatService {
         
       });
       return () => {
-       
+
       };
       
     });
     
     return observable;
   }
-    typing(data) {
+  typing(data) {
     this.socket.emit('typing', data);
   }
   getChatHistory()
@@ -92,27 +93,29 @@ export class ChatService {
     })
     return observable;
   } 
-
-  isOnline()
-  {
-      const observable = new Observable<{username : String, email : String, isOnline : boolean}>(observer => {
-      this.socket.on('logged_in_user', (user) => {
-        console.log("user from chat service is online $$$$$$$", user);
-        observer.next(user);
-      });
-      return () => {
-
-      };
-      
-    })
-    return observable;
-  }
-    
-
-
-
-
 }
+
+  // isOnline()
+  // {
+  //     const observable = new Observable<{username : String, email : String, isOnline : Boolean}>(observer => {
+  //     this.socket.on('logged_in_user', (user) => {
+  //       console.log("user from chat service is online $$$$$$$", user);
+  //       observer.next(user);
+  //     });
+  //     return () => {
+
+  //     };
+
+  //   })
+  //   return observable;
+  // }
+
+
+
+
+
+
+
 
 
 

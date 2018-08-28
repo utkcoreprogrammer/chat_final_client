@@ -1,4 +1,4 @@
-import { Observable } from "rxjs/Rx";
+import { Observable } from "rxjs";
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -11,6 +11,7 @@ export class UserService {
   userNames : object;
 
   constructor(private http: HttpClient, private router : Router) { }
+
 
 
   register(user: any) {
@@ -31,13 +32,12 @@ export class UserService {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     return user != null ? true : false;
   }
-  // getChatRoomsChat(chatRoom) {
-  //   return this.http.get<any>(`${this.baseUrl}/chatroom/` + chatRoom);
-  // }
-  logOut () { 
-   localStorage.removeItem('currentUser');
-   this.router.navigate(['login']);
-   location.reload(true);
+
+  logOutApi(email : any) { 
+  console.log("inside logout api$$$$$$$$$", email);       
+  return this.http.post<any>(`${this.baseUrl}/user/logOut`, {email : email});        
+
+
   }
 }
 

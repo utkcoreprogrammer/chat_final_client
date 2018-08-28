@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { GroupChatComponent } from './components/group-chat/group-chat.component';
 import { UserService } from './services/user.service';
+import { UserListService } from './services/userList.service';
 import { ToastService } from './services/toast.service';
 import { AuthService } from './services/auth.service';
 import { ChatService } from './services/chat.service';
@@ -38,7 +39,8 @@ import { HomeComponent } from './components/home/home.component';
   providers: [UserService,
   ToastService,
   AuthService,
-  ChatService
+  ChatService,
+  UserListService
   ],
   bootstrap: [AppComponent]
 })

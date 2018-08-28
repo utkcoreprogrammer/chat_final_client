@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { UserListService } from '../../services/userList.service';
 import { ChatService } from '../../services/chat.service';
 import { Router, ActivatedRoute } from '@angular/router'
 
@@ -11,27 +13,38 @@ import { Router, ActivatedRoute } from '@angular/router'
 export class PersonalChatComponent implements OnInit {
 	userNames : any = []
   Users
-  isOnline : boolean;
+  email
   constructor(private router : Router, 
     private route : ActivatedRoute, 
     private userService : UserService, 
-    private chatService: ChatService) { 
+    private chatService: ChatService,
+    private UserListService: UserListService,
+    private authService : AuthService
+    ) { 
 
  }
 
   ngOnInit() {
-  	this.userService.getAllUsers().subscribe(users =>
-  	{
-      console.log("users>>>>>>>", users);
-  		this.userNames = users.map(({username}) => username)
-      console.log("usernames", this.userNames);
-  		this.Users= users
-  		//.json();
-  	})
-    const currentUser = this.userService.getLoggedInUser();
-    this.isOnline = currentUser.isOnline;
+    console.log("init personal-chat >>>>>>>>>>>>>>>>",this.UserListService.Users)
+    this.Users = this.UserListService.Users
+    let currentUser = this.userService.getLoggedInUser();
+    this.email = currentUser.email;
+    console.log("current User$$$$$$$$$$$$",  this.email);
+
 
  
+  }
+
+  logOut()
+  {  
+   this.userService.logOutApi(this.email).subscribe(data=>
+   {
+     console.log("response from logOutApi", data);
+   })
+   localStorage.removeItem('currentUser');
+   // location.reload(true);
+   this.router.navigate(['login']);
+
   }
 
 }
