@@ -12,8 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class PersonalChatComponent implements OnInit {
 	userNames : any = []
-  Users
+  Users : any = []
   email
+  currentUserName
   constructor(private router : Router, 
     private route : ActivatedRoute, 
     private userService : UserService, 
@@ -21,15 +22,36 @@ export class PersonalChatComponent implements OnInit {
     private UserListService: UserListService,
     private authService : AuthService
     ) { 
+    this.userService.getAllUsers().subscribe(users =>{
 
+    let that = this;
+    that.UserListService.Users = users
+    let currentUser = this.userService.getLoggedInUser();
+    this.email = currentUser.email;
+    this.currentUserName = currentUser.username;
+    let index= that.UserListService.Users.findIndex(x=>
+    {
+      return x.email == this.email
+    })
+
+    console.log("index of logged in user>>>>>>>>>",  index);
+    that.UserListService.Users.splice(index,1);
+    this.Users = that.UserListService.Users;
+    console.log("Users from personal chat@@@@@@@@@", this.Users);
+    })
+
+    // let that = this;
+    // let index= that.UserListService.Users.findIndex(x=>
+    // {
+    //   return x.email == this.email
+    // })
+    // console.log("index of logged in user>>>>>>>>>",  index);
+    // this.Users = that.UserListService.Users
+    // this.Users.splice(index, 1);
+    // console.log("other than current User$$$$$$$$$$$$",  this.Users);
  }
 
   ngOnInit() {
-    console.log("init personal-chat >>>>>>>>>>>>>>>>",this.UserListService.Users)
-    this.Users = this.UserListService.Users
-    let currentUser = this.userService.getLoggedInUser();
-    this.email = currentUser.email;
-    console.log("current User$$$$$$$$$$$$",  this.email);
 
 
  

@@ -1,20 +1,41 @@
 <div class="container">
-    <table class="table table-hover">
+
+
+   <div *ngIf="userService.isLoggedIn()" class= "user">
+        <h4 class="self">Welcome, {{ currentUserName}}</h4>
+    </div>
+        <div>
+              <h4 class= "friends"> Your Friends </h4>
+    <table class="table table-hover table-responsive">
         <thead>
           <tr>
-            <th>Users</th>
+            <th></th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
+    
         <tbody>
           <tr *ngFor="let user of Users">
-            <td *ngIf="user.username != userService.getLoggedInUser().username">{{ user.username }}</td> 
-            <td>{{user.isOnline}} </td>
-            <td *ngIf="user.username != userService.getLoggedInUser().username"><button class="btn btn-success button" [queryParams]="{ name: user.username, email: user.email }" routerLink= "/group_chat">Chat</button></td>
+            <td>
+            <div *ngIf = "user.isOnline" id="online"></div>
+            <div *ngIf = "!user.isOnline" id="offline"></div>
+             </td>
+            <td class="usernames">{{ user.username }}</td> 
+            <td><button class="btn btn-success" [queryParams]="{ name: user.username, email: user.email }" routerLink= "/group_chat">Chat</button></td>
 
           </tr>   
         </tbody>
       </table>
+    </div>
+<!-- 
+        <ul>
+          <li *ngFor = "let user of Users">
+            <div *ngIf = "user.username != userService.getLoggedInUser().username">{{user.username}} </div>
+            <div *ngIf= "user.username != userService.getLoggedInUser().username">
+              <button class="btn btn-success button" [queryParams]="{ name: user.username, email: user.email }" routerLink= "/group_chat">Chat</button> </div>
+          </li>
+        </ul> -->
 
     <div *ngIf = "userService.isLoggedIn()">
       <button id="logOut" (click) = "logOut()" >LogOut</button>

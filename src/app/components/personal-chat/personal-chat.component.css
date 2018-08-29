@@ -1,0 +1,49 @@
+#online
+{
+  height: 13px;
+  width: 13px;
+  background-color: #7CEB1F;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+#offline
+{
+  height: 13px;
+  width: 13px;
+  background-color: #EC4910;
+  border-radius: 50%;
+  display: inline-block;
+
+}
+
+
+
+table{
+  column-width: 30px;
+  border: none;
+
+}
+
+
+
+th,td{
+     column-width: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+.user{
+  text-align: center;
+}
+
+
+.usernames{
+  font-size: 17px;
+  font-family: 'Rockwell';
+}
+
+.friends{
+  text-align: left;
+
+}

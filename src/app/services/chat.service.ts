@@ -12,7 +12,7 @@ export class ChatService {
 	private baseUrl:string = environment.apiUrl;
 	private socket = io.connect('http://localhost:9090');
   private username : string;
-  private isOnline : boolean; 
+
 
   constructor(private http:  HttpClient, private userService : UserService,private UserListService : UserListService) { 
       let that = this;
@@ -26,17 +26,19 @@ export class ChatService {
       console.log("found index <>>>>>>>>>>>>",index)
       that.UserListService.Users[index] = onlineUser
       console.log("DAta updated #### in User List service >>>>>>>>>",that.UserListService.Users)
-
-
-
-      }) 
-
-
       })
+       
       this.socket.on("log_Out_User", (offlineUser) =>
       {
-        console.log("offline user event fired!@!@!#@", offlineUser);
+      console.log("offline user event fired!@!@!#@", offlineUser);
+      let index = that.UserListService.Users.findIndex(x=>{return x.email == offlineUser.email})
+      console.log("found index offline<><><><><> ",index)
+      that.UserListService.Users[index] = offlineUser
+      console.log("DAta updated offline in User List service >>>>>>>>>",that.UserListService.Users)
       })
+
+      })
+      
    
 
   }

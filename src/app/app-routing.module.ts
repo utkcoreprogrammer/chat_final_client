@@ -5,12 +5,15 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { GroupChatComponent } from './components/group-chat/group-chat.component';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard} from './guards/auth.guard';
+
 
 
 const routes: Routes = [
   { 
         path: 'single_chat', 
-        component: PersonalChatComponent
+        component: PersonalChatComponent,
+        canActivate : [AuthGuard]
   },
    { 
         path: 'register', 
@@ -22,11 +25,13 @@ const routes: Routes = [
   },
   { 
         path: 'group_chat', 
-        component: GroupChatComponent
+        component: GroupChatComponent,
+        canActivate : [AuthGuard]
   },  
   {   
         path: 'home', 
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate : [AuthGuard]
   }
 
     ];

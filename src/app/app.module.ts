@@ -13,6 +13,7 @@ import { UserListService } from './services/userList.service';
 import { ToastService } from './services/toast.service';
 import { AuthService } from './services/auth.service';
 import { ChatService } from './services/chat.service';
+import { AuthGuard } from './guards/auth.guard';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
@@ -40,7 +41,8 @@ import { HomeComponent } from './components/home/home.component';
   ToastService,
   AuthService,
   ChatService,
-  UserListService
+  UserListService,
+  AuthGuard
   ],
   bootstrap: [AppComponent]
 })

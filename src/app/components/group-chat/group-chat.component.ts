@@ -25,10 +25,7 @@ export class GroupChatComponent implements OnInit {
     private chatService: ChatService,
     private router: Router) { 
 
-    this.chatService.isOnline().subscribe(user =>
-    {
-      console.log("is online event listening @@@@@@@", user);
-    })
+   
 
     this.chatService.getChatHistory().subscribe(messages => {
         let keys = Object.keys(messages);
@@ -66,7 +63,9 @@ export class GroupChatComponent implements OnInit {
     this.username = this.route.snapshot.queryParamMap.get('name');
     this.email = this.route.snapshot.queryParamMap.get('email');  
   	const currentUser = this.userService.getLoggedInUser();
-    console.log("from group chat>isOnline", users)
+    console.log("get all users >>>>>>>>>>>", users);
+    // users.isOnline = true;
+    // console.log("users. isonline@@@@@@", users.isOnline);
     if (currentUser.username < this.username) {
       this.chatroom = currentUser.username.concat(this.username);
     } else {
