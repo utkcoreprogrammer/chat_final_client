@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
 
 
    <div *ngIf="userService.isLoggedIn()" class= "user">
@@ -28,19 +28,81 @@
         </tbody>
       </table>
     </div>
-<!-- 
-        <ul>
-          <li *ngFor = "let user of Users">
-            <div *ngIf = "user.username != userService.getLoggedInUser().username">{{user.username}} </div>
-            <div *ngIf= "user.username != userService.getLoggedInUser().username">
-              <button class="btn btn-success button" [queryParams]="{ name: user.username, email: user.email }" routerLink= "/group_chat">Chat</button> </div>
-          </li>
-        </ul> -->
-
     <div *ngIf = "userService.isLoggedIn()">
       <button id="logOut" (click) = "logOut()" >LogOut</button>
     </div> 
 </div>
    <div *ngIf = "!userService.isLoggedIn()">
       <p> Please login first </p>
+    </div>  -->
+
+
+<div id="frame">
+  <div id="sidepanel">
+    <div id="profile">
+      <div class="wrap">
+      <h4 class= "friends"> Your Friends </h4>
+
+
+
+      
+      </div>
+    </div>
+
+    <div id="contacts">
+      <ul>
+        <li class="contact" *ngFor="let user of Users">
+
+          <div class="wrap">
+              <div class="status pull-left">
+                <div *ngIf = "user.isOnline">
+                  <span class="contact-status online"></span>
+                </div>
+                <div *ngIf = "!user.isOnline">
+                  <span class="contact-status offline"></span>
+                </div>
+              </div>
+              <div class="new">
+                
+                <a class="name" [queryParams]="{ name: user.username, email: user.email }" routerLink= "/group_chat"> {{ user.username }} </a>
+              </div>
+           <!--    <div class ="chat">
+
+              </div> -->
+             <!--  <button class="btn btn-success" [queryParams]="{ name: user.username, email: user.email }" routerLink= "/group_chat">Chat</button> -->
+        
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+  <div class="content">
+    <div class="contact-profile" style="padding-left: 300px">
+      <p>Nitin</p>
+
+    </div>
+    <div class="messages">
+      <ul>
+        <li class="sent">
+          <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+        </li>
+        <li class="replies">
+          <p>When you're backed against the wall, break the god damn thing down.</p>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+    <div *ngIf = "userService.isLoggedIn()">
+      <button id="logOut" (click) = "logOut()" >LogOut</button>
     </div> 
+

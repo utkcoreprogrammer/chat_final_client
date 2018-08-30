@@ -24,14 +24,32 @@ export class GroupChatComponent implements OnInit {
     private userService: UserService,
     private chatService: ChatService,
     private router: Router) { 
+    this.username = this.route.snapshot.queryParamMap.get('name');
+    this.email = this.route.snapshot.queryParamMap.get('email');  
+    const currentUser = this.userService.getLoggedInUser();
+    if (currentUser.username < this.username) {
+      this.chatroom = currentUser.username.concat(this.username);
+    } else {
+      this.chatroom = this.username.concat(currentUser.username);
 
-   
+    }
+    this.chatService.joinRoom({user: this.userService.getLoggedInUser().username, room: this.chatroom}); 
 
     this.chatService.getChatHistory().subscribe(messages => {
         let keys = Object.keys(messages);
+        console.log("keys$$$$$$$$$$",keys);
+        // this.chatHistory.push(messages);
+
         for(var key of keys){
           this.chatHistory.push(messages[key]);
-        }      
+        }     
+         console.log("messagess$$$$$$$$$$",messages);
+
+      this.chatService.receivedTyping().subscribe(bool => {
+      this.isTyping = bool.isTyping;
+      
+    });
+
     this.chatService.newMessageReceived().subscribe(data => {
         console.log("data received", data);
         this.chatHistory.push(data);
@@ -45,46 +63,16 @@ export class GroupChatComponent implements OnInit {
   
         
       });
-
-    this.chatService.receivedTyping().subscribe(bool => {
-      this.isTyping = bool.isTyping;
-      
-    });
-  
-
-
-
-
   }
 
    ngOnInit() {
-   	this.userService.getAllUsers().subscribe(users =>
-  	{
-    this.username = this.route.snapshot.queryParamMap.get('name');
-    this.email = this.route.snapshot.queryParamMap.get('email');  
-  	const currentUser = this.userService.getLoggedInUser();
-    console.log("get all users >>>>>>>>>>>", users);
-    // users.isOnline = true;
-    // console.log("users. isonline@@@@@@", users.isOnline);
-    if (currentUser.username < this.username) {
-      this.chatroom = currentUser.username.concat(this.username);
-    } else {
-      this.chatroom = this.username.concat(currentUser.username);
 
-    }
-    this.chatService.joinRoom({user: this.userService.getLoggedInUser().username, room: this.chatroom});
-   //  this.userService.getChatRoomsChat(this.chatroom).subscribe(messages => {
-   //  console.log("messages>>>", messages);
-   //  this.messageArray = messages;
-  	// })
-   
-    });
-   
+
   }
    sendMessage() {
     this.chatService.sendMessage({room: this.chatroom, user: this.userService.getLoggedInUser().username, message: this.message});
     this.message = '';
-    this.isTyping = false;
+    // this.isTyping = false;
   }
     typing() {
     this.chatService.typing({room: this.chatroom, user: this.userService.getLoggedInUser().username});

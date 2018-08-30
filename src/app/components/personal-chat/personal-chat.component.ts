@@ -40,15 +40,6 @@ export class PersonalChatComponent implements OnInit {
     console.log("Users from personal chat@@@@@@@@@", this.Users);
     })
 
-    // let that = this;
-    // let index= that.UserListService.Users.findIndex(x=>
-    // {
-    //   return x.email == this.email
-    // })
-    // console.log("index of logged in user>>>>>>>>>",  index);
-    // this.Users = that.UserListService.Users
-    // this.Users.splice(index, 1);
-    // console.log("other than current User$$$$$$$$$$$$",  this.Users);
  }
 
   ngOnInit() {
@@ -64,7 +55,7 @@ export class PersonalChatComponent implements OnInit {
      console.log("response from logOutApi", data);
    })
    localStorage.removeItem('currentUser');
-   // location.reload(true);
+   location.reload(true);
    this.router.navigate(['login']);
 
   }

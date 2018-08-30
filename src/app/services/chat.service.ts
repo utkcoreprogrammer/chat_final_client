@@ -59,18 +59,20 @@ export class ChatService {
       });
 
       return () => {
-
+         this.socket.disconnect();
       };
     });
     return observable;
   }
   receivedTyping() {
-    const observable = new Observable<{ isTyping: boolean}>(observer => {
+    const observable = new Observable<{ data : String, isTyping: boolean}>(observer => {
       this.socket.on('typing', (data) => {
+        console.log("data from typing !#@#@#@#@##", data);
         observer.next(data);
         
       });
       return () => {
+       this.socket.disconnect();
 
       };
       
@@ -89,6 +91,7 @@ export class ChatService {
         observer.next(messages);
       });
       return () => {
+         this.socket.disconnect();
 
       };
       
