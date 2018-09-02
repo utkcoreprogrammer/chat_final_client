@@ -1,3 +1,53 @@
+/* #online
+{
+  height: 13px;
+  width: 13px;
+  background-color: #7CEB1F;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+#offline
+{
+  height: 13px;
+  width: 13px;
+  background-color: #EC4910;
+  border-radius: 50%;
+  display: inline-block;
+
+}
+
+
+
+table{
+  column-width: 30px;
+  border: none;
+
+}
+
+
+
+th,td{
+     column-width: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+.user{
+  text-align: center;
+}
+
+
+.usernames{
+  font-size: 17px;
+  font-family: 'Rockwell';
+}
+
+.friends{
+  text-align: left;
+
+} */
+
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 *, *:before, *:after {
   box-sizing: border-box;
@@ -61,7 +111,7 @@ body {
 }
 
 .chat {
-  width: 750px;
+  width: 730px;
   float: left;
   background: #F2F5F8;
   border-top-right-radius: 5px;
@@ -163,13 +213,12 @@ body {
 }
 .chat .chat-message button {
   float: right;
-  color: #94C2ED;
   font-size: 16px;
   text-transform: uppercase;
-  border: none;
+  /* border: none; */
   cursor: pointer;
   font-weight: bold;
-  background: #F2F5F8;
+  /* background: rgb(56, 192, 38); */
 }
 .chat .chat-message button:hover {
   color: #75b1e8;
@@ -212,3 +261,7 @@ body {
   clear: both;
   height: 0;
 }
+
+/* #send {
+
+} */

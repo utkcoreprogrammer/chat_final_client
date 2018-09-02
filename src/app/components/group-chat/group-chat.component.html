@@ -1,4 +1,4 @@
-<div id="mario-chat">
+
     <h2>{{ userService.getLoggedInUser().username }} {{ username }}</h2>
     <span><i *ngIf="isTyping" class="isTyping">typing...</i></span>
     <div id="chat-window">
@@ -8,10 +8,107 @@
         </li>
         </ul>
 
-            <!-- <p [class.userMessage] = "item.user == userService.getLoggedInUser().username" [class.secUserMessage]="item.user != userService.getLoggedInUser().username">{{ item.message }}</p>                 -->
+    <p [class.userMessage] = "item.user == userService.getLoggedInUser().username" [class.secUserMessage]="item.user != userService.getLoggedInUser().username">{{ item.message }}</p>
+     <input (keypress)="typing()" [(ngModel)]="message" name="message" type="text" placeholder="Message" />            
+    <button id="send" (click)="sendMessage()">Send</button>
+
+
+
+
+
+     <!-- <body>
+    <div class="container clearfix">
+    <div class="col-md-4">
+    <div class="people-list" id="people-list">
+      <ul class="list">
+        <li class="clearfix">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+          <div class="about">
+            <div class="name">Vincent Porter</div>
+            <div class="status">
+              <i class="fa fa-circle online"></i> online
+            </div>
+          </div>
+        </li>
         
-        <!-- <div id="feedback"></div> -->
+        <li class="clearfix">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg" alt="avatar" />
+          <div class="about">
+            <div class="name">Aiden Chavez</div>
+            <div class="status">
+              <i class="fa fa-circle offline"></i> left 7 mins ago
+            </div>
+          </div>
+        </li>
+        
+   
+        
+     
+      </ul>
     </div>
-    <input (keypress)="typing()" [(ngModel)]="message" name="message" type="text" placeholder="Message" />            
-    <button id="send" (click)="sendMessage()">Send</button>    
-</div>
+    </div>
+ 
+  
+<div class="col-md-8">
+    <div class="chat">
+  
+      <div class="chat-header clearfix">
+         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+        
+        <div class="chat-about">
+          <div class="chat-with">Chat with Vincent Porter</div>
+         
+        </div>
+        <i class="fa fa-star"></i>
+      </div> end chat-header -->
+      
+      <!-- <div class="chat-history">
+        <ul>
+          <li class="clearfix">
+            <div class="message-data align-right">
+          
+              <span class="message-data-name" >Friend name id typing... </span> <i class="fa fa-circle me"></i>
+              
+            </div>
+            <div class="message other-message float-right">
+              Hi Vincent, how are you? How is the project coming along?
+            </div>
+          </li>
+          
+          <li>
+              <div class="message-data align-left">
+          
+                  <span class="message-data-name" >Self</span> <i class="fa fa-circle me"></i>
+                  
+                </div>
+        
+            <div class="message my-message">
+              Are we meeting today? Project has been already finished and I have results to show you.
+            </div>
+          </li>
+          
+        
+          
+      
+          
+      
+          
+        </ul>
+        
+      </div>
+      
+      <div class="chat-message clearfix">
+        <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+                
+        <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+        <i class="fa fa-file-image-o"></i>
+        
+        <button>Send</button>
+
+      </div>
+      
+    </div> 
+    </div>
+    </div>
+  </body>  -->
+ 

@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PersonalChatComponent } from './components/personal-chat/personal-chat.component';
+import { ChatHistoryComponent } from './components/personal-chat/chat-history/chat-history.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { GroupChatComponent } from './components/group-chat/group-chat.component';
@@ -13,6 +14,7 @@ import { UserListService } from './services/userList.service';
 import { ToastService } from './services/toast.service';
 import { AuthService } from './services/auth.service';
 import { ChatService } from './services/chat.service';
+import { ChangeHeaderService } from './services/change-header.service';
 import { AuthGuard } from './guards/auth.guard';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +25,7 @@ import { HomeComponent } from './components/home/home.component';
   declarations: [
     AppComponent,
     PersonalChatComponent,
+    ChatHistoryComponent,
     LoginComponent,
     RegisterComponent,
     GroupChatComponent,
@@ -42,7 +45,8 @@ import { HomeComponent } from './components/home/home.component';
   AuthService,
   ChatService,
   UserListService,
-  AuthGuard
+  AuthGuard,
+  ChangeHeaderService
   ],
   bootstrap: [AppComponent]
 })

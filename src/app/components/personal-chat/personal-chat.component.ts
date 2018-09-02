@@ -22,23 +22,7 @@ export class PersonalChatComponent implements OnInit {
     private UserListService: UserListService,
     private authService : AuthService
     ) { 
-    this.userService.getAllUsers().subscribe(users =>{
-
-    let that = this;
-    that.UserListService.Users = users
-    let currentUser = this.userService.getLoggedInUser();
-    this.email = currentUser.email;
-    this.currentUserName = currentUser.username;
-    let index= that.UserListService.Users.findIndex(x=>
-    {
-      return x.email == this.email
-    })
-
-    console.log("index of logged in user>>>>>>>>>",  index);
-    that.UserListService.Users.splice(index,1);
-    this.Users = that.UserListService.Users;
-    console.log("Users from personal chat@@@@@@@@@", this.Users);
-    })
+   
 
     // let that = this;
     // let index= that.UserListService.Users.findIndex(x=>
@@ -54,7 +38,23 @@ export class PersonalChatComponent implements OnInit {
   ngOnInit() {
 
 
- 
+    this.userService.getAllUsers().subscribe(users =>{
+
+      let that = this;
+      that.UserListService.Users = users
+      let currentUser = this.userService.getLoggedInUser();
+      this.email = currentUser.email;
+      this.currentUserName = currentUser.username;
+      let index= that.UserListService.Users.findIndex(x=>
+      {
+        return x.email == this.email
+      })
+  
+      console.log("index of logged in user>>>>>>>>>",  index);
+      that.UserListService.Users.splice(index,1);
+      this.Users = that.UserListService.Users;
+      console.log("Users from personal chat@@@@@@@@@", this.Users);
+      })
   }
 
   logOut()

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ChatService } from '../../services/chat.service';
-import * as io from 'socket.io-client';
+// import * as io from 'socket.io-client';
 
 
 
@@ -60,8 +60,8 @@ export class GroupChatComponent implements OnInit {
    ngOnInit() {
    	this.userService.getAllUsers().subscribe(users =>
   	{
-    this.username = this.route.snapshot.queryParamMap.get('name');
-    this.email = this.route.snapshot.queryParamMap.get('email');  
+    // this.username = this.route.snapshot.queryParamMap.get('name');
+    // this.email = this.route.snapshot.queryParamMap.get('email');  
   	const currentUser = this.userService.getLoggedInUser();
     console.log("get all users >>>>>>>>>>>", users);
     // users.isOnline = true;

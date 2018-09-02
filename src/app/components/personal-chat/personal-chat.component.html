@@ -1,11 +1,11 @@
-<div class="container">
+<!-- <div class="container">
 
 
    <div *ngIf="userService.isLoggedIn()" class= "user">
         <h4 class="self">Welcome, {{ currentUserName}}</h4>
     </div>
-        <div>
-              <h4 class= "friends"> Your Friends </h4>
+       
+             
     <table class="table table-hover table-responsive">
         <thead>
           <tr>
@@ -27,20 +27,141 @@
           </tr>   
         </tbody>
       </table>
-    </div>
-<!-- 
-        <ul>
-          <li *ngFor = "let user of Users">
-            <div *ngIf = "user.username != userService.getLoggedInUser().username">{{user.username}} </div>
-            <div *ngIf= "user.username != userService.getLoggedInUser().username">
-              <button class="btn btn-success button" [queryParams]="{ name: user.username, email: user.email }" routerLink= "/group_chat">Chat</button> </div>
-          </li>
-        </ul> -->
+   
 
     <div *ngIf = "userService.isLoggedIn()">
       <button id="logOut" (click) = "logOut()" >LogOut</button>
     </div> 
-</div>
-   <div *ngIf = "!userService.isLoggedIn()">
-      <p> Please login first </p>
+</div> -->
+<!-- <body>
+    <div class="container clearfix">
+    <div class="col-md-4">
+    <div class="people-list" id="people-list">
+      <ul class="list">
+        <li class="clearfix" *ngFor="let user of Users">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+          <div class="about">
+            <div class="name">{{ user.username }}</div>
+            <div class="status">
+              <i class="fa fa-circle online"></i> {{user.isOnline}}
+            </div>
+          </div>
+        </li>
+     
+        
+   
+        
+     
+      </ul>
+      <div *ngIf = "userService.isLoggedIn()">
+          <button id="logOut" (click) = "logOut()" >LogOut</button>
+        </div> 
+      
+    </div>
+    </div>
+ 
+  
+<div class="col-md-8">
+    <div class="chat">
+  
+      <div class="chat-header clearfix">
+       <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" /> -->
+        
+        <!-- <div class="chat-about">
+          <div class="chat-with">Chat with Vincent Porter</div>
+         
+        </div>
+        <i class="fa fa-star"></i>
+      </div> <!-- end chat-header -->
+      
+      <!-- <div class="chat-history">
+        <ul>
+          <li class="clearfix">
+            <div class="message-data align-right">
+          
+              <span class="message-data-name" >Friend name id typing... </span> <i class="fa fa-circle me"></i>
+              
+            </div>
+            <div class="message other-message float-right">
+              Hi Vincent, how are you? How is the project coming along?
+            </div>
+          </li>
+          
+          <li>
+              <div class="message-data align-left">
+          
+                  <span class="message-data-name" >Self</span> <i class="fa fa-circle me"></i>
+                  
+                </div>
+        
+            <div class="message my-message">
+              Are we meeting today? Project has been already finished and I have results to show you.
+            </div>
+          </li>
+          
+        
+          
+      
+          
+      
+          
+        </ul>
+        
+      </div> 
+      
+      <div class="chat-message clearfix">
+        <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+                
+        <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+        <i class="fa fa-file-image-o"></i>
+        
+        <button>Send</button>
+
+      </div>
+      
     </div> 
+    </div>
+    </div>
+  </body> -->
+
+<body>
+    <div *ngIf="userService.isLoggedIn()" id= "user">
+        <h4 class="self">Welcome, {{ currentUserName}}</h4>
+    </div>
+  <div class="container clearfix">
+    <div class="col-md-4">
+      <div class="people-list" id="people-list">
+        <ul class="list">
+          <li class="clearfix" *ngFor="let user of Users">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+            <div class="about">
+              <div class="name"><a id = "usernames" [queryParams]="{ name: user.username, email: user.email }" [routerLink]= "['chat_history/:name/:email']"> {{ user.username }} </a>
+              </div>
+              <div class="status" *ngIf = "user.isOnline" id="online">
+                
+              </div>
+              <div class="status"  *ngIf = "!user.isOnline" id="offline">
+                 
+                </div>
+            </div>
+          </li>
+       
+          
+     
+          
+       
+        </ul>
+      </div>  
+        <div *ngIf = "userService.isLoggedIn()" id="logOut">
+            <button id = "logout_btn" class="btn btn-success" (click) = "logOut()" >LogOut</button>
+        </div> 
+        
+      
+    </div>
+ 
+    <div class="col-md-8">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  
+    </body>
