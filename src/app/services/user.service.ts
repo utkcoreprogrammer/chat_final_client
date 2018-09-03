@@ -39,5 +39,9 @@ export class UserService {
 
 
   }
+  getChatHistory(room : any ){
+  return this.http.get<any>(`${this.baseUrl}/chatroom/${room}`);        
+
+  }
 }
 

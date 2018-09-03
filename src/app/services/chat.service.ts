@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { UserService } from '../services/user.service';
 import { UserListService } from '../services/userList.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Injectable()
@@ -14,7 +15,7 @@ export class ChatService {
   private username : string;
 
 
-  constructor(private http:  HttpClient, private userService : UserService,private UserListService : UserListService) { 
+  constructor(private http:  HttpClient, private userService : UserService,private UserListService : UserListService, private route : ActivatedRoute, private router : Router) { 
       let that = this;
       this.userService.getAllUsers().subscribe(users =>{
       console.log("data from user service $$$$$$$",users);
@@ -42,6 +43,7 @@ export class ChatService {
    
 
   }
+
   joinRoom(data) {
     console.log("data from join room",data);
     this.socket.emit('join', data);
@@ -87,7 +89,7 @@ export class ChatService {
   {
     const observable = new Observable<{user : String, message : String}>(observer => {
       this.socket.on('getMessages', (messages) => {
-        console.log("type of messages" , typeof(messages));
+        console.log("messages from chat service@@@@@@@" , messages);
         observer.next(messages);
       });
       return () => {
@@ -100,20 +102,6 @@ export class ChatService {
   } 
 }
 
-  // isOnline()
-  // {
-  //     const observable = new Observable<{username : String, email : String, isOnline : Boolean}>(observer => {
-  //     this.socket.on('logged_in_user', (user) => {
-  //       console.log("user from chat service is online $$$$$$$", user);
-  //       observer.next(user);
-  //     });
-  //     return () => {
-
-  //     };
-
-  //   })
-  //   return observable;
-  // }
 
 
 

@@ -1,5 +1,3 @@
-
-
 /* #online
 {
   height: 13px;
@@ -57,7 +55,7 @@ th,td{
 
 body {
   background: #C5DDEB;
-  font: 14px/20px;
+  font: 14px/20px "Lato", Arial, sans-serif;
   padding: 40px 0;
   color: white;
 }
@@ -72,7 +70,6 @@ body {
 .people-list {
   width: 260px;
   float: left;
-
 }
 .people-list .search {
   padding: 20px;
@@ -94,12 +91,10 @@ body {
   padding: 20px;
   height: 770px;
   list-style-type: none;
-  /* overflow-y: scroll; */
 }
 .people-list ul li {
   padding-bottom: 20px;
   list-style-type: none;
-  
 }
 .people-list img {
   float: left;
@@ -110,18 +105,13 @@ body {
 }
 .people-list .about {
   padding-left: 8px;
-  color: #fff;
 }
 .people-list .status {
   color: #92959E;
 }
-a{
-  text-decoration: none;
-  color :#fff;
-}
 
 .chat {
-  width: 700px;
+  width: 730px;
   float: left;
   background: #F2F5F8;
   border-top-right-radius: 5px;
@@ -223,13 +213,12 @@ a{
 }
 .chat .chat-message button {
   float: right;
-  color: #94C2ED;
   font-size: 16px;
   text-transform: uppercase;
-  border: none;
+  /* border: none; */
   cursor: pointer;
   font-weight: bold;
-  background: #F2F5F8;
+  /* background: rgb(56, 192, 38); */
 }
 .chat .chat-message button:hover {
   color: #75b1e8;
@@ -273,49 +262,6 @@ a{
   height: 0;
 }
 
+/* #send {
 
-#online
-{
-  height: 11px;
-  width: 11px;
-  background-color: #7CEB1F;
-  border-radius: 50%;
-  display: inline-block;
-  margin-top: 1px;
-}
-
-
-#offline
-{
-  height: 11px;
-  width: 11px;
-  background-color: #EC4910;
-  border-radius: 50%;
-  display: inline-block;
-  margin-top: 1px;
-
-}
-#user{
-
-text-align: center;
-font-family: 'Lucida Sans Unicode';
-font-size : 16px;
-color : white;
-font-weight: 700;
-}
-
-usernames{
-  color : #fff;
-}
-
-#logOut{
-  text-align: center;
-  text-transform: uppercase;
-}
-#logout_btn{
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size : 16px;
-}
+} */
