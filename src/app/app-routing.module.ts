@@ -6,7 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 // import { GroupChatComponent } from './components/group-chat/group-chat.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard} from './guards/auth.guard';
-import { ChatHistoryComponent } from './components/personal-chat/chat-history/chat-history.component';
+// import { ChatHistoryComponent } from './components/personal-chat/chat-history/chat-history.component';
 
 
 
@@ -14,13 +14,13 @@ const routes: Routes = [
   { 
         path: 'single_chat', 
         component: PersonalChatComponent,
-        canActivate : [AuthGuard],
-        children : [
-              {
-                    path: 'chat_history',
-                    component : ChatHistoryComponent
-              }
-        ]
+        canActivate : [AuthGuard]
+        // children : [
+        //       {
+        //             path: 'chat_history/:name',
+        //             component : ChatHistoryComponent
+        //       }
+        // ]
   },
    { 
         path: 'register', 

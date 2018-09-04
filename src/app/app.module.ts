@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PersonalChatComponent } from './components/personal-chat/personal-chat.component';
-import { ChatHistoryComponent } from './components/personal-chat/chat-history/chat-history.component';
+// import { ChatHistoryComponent } from './components/personal-chat/chat-history/chat-history.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 // import { GroupChatComponent } from './components/group-chat/group-chat.component';
@@ -26,7 +26,6 @@ import { HomeComponent } from './components/home/home.component';
   declarations: [
     AppComponent,
     PersonalChatComponent,
-    ChatHistoryComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent

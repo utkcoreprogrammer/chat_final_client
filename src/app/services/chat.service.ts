@@ -85,21 +85,21 @@ export class ChatService {
   typing(data) {
     this.socket.emit('typing', data);
   }
-  getChatHistory()
-  {
-    const observable = new Observable<{user : String, message : String}>(observer => {
-      this.socket.on('getMessages', (messages) => {
-        console.log("messages from chat service@@@@@@@" , messages);
-        observer.next(messages);
-      });
-      return () => {
-         this.socket.disconnect();
+  // getChatHistory()
+  // {
+  //   const observable = new Observable<{user : String, message : String}>(observer => {
+  //     this.socket.on('getMessages', (messages) => {
+  //       console.log("messages from chat service@@@@@@@" , messages);
+  //       observer.next(messages);
+  //     });
+  //     return () => {
+  //        this.socket.disconnect();
 
-      };
+  //     };
       
-    })
-    return observable;
-  } 
+  //   })
+  //   return observable;
+  // } 
 }
 
 
