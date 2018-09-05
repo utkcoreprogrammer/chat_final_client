@@ -23,6 +23,11 @@ export class UserService {
   	console.log("inside getAllUsers");
     return this.http.get<any>(`${this.baseUrl}/user/getAllUsers`)
   }  
+
+  getAllGroups(){
+    console.log("inside getAllUsers");
+    return this.http.get<any>(`${this.baseUrl}/user/getAllGroups`)
+  } 
    
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('currentUser'));
@@ -35,10 +40,17 @@ export class UserService {
 
   logOutApi(email : any) { 
   console.log("inside logout api$$$$$$$$$", email);       
-  return this.http.post<any>(`${this.baseUrl}/user/logOut`, {email : email});        
-
-
+  return this.http.post<any>(`${this.baseUrl}/user/logOut`, {email : email});       
   }
+
+  createGroupApi(group : any) { 
+  console.log("inside logout api$$$$$$$$$", group);       
+  return this.http.post<any>(`${this.baseUrl}/user/group`, group);       
+  }
+
+
+
+
   getChatHistory(room : any ){
   return this.http.get<any>(`${this.baseUrl}/chatroom/${room}`);        
 

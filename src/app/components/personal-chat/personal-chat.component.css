@@ -64,6 +64,7 @@ body {
 
 .container {
   margin: 0 auto;
+  height : auto;
   width: 1100px;
   background: #444753;
   border-radius: 5px;
@@ -72,6 +73,11 @@ body {
 .people-list {
   width: 260px;
   float: left;
+
+}
+.people-list .people-header{
+  padding-top: 5px;
+  text-align: center;
 
 }
 .people-list .search {
@@ -92,29 +98,38 @@ body {
 }
 .people-list ul {
   padding: 20px;
-  height: 770px;
+  height : auto;
   list-style-type: none;
   /* overflow-y: scroll; */
 }
 .people-list ul li {
   padding-bottom: 20px;
   list-style-type: none;
+  /*overflow-y: scroll;*/
   
 }
 .people-list img {
   float: left;
 }
 .people-list .about {
-  float: left;
-  margin-top: 8px;
-}
-.people-list .about {
   padding-left: 8px;
   color: #fff;
+  float: left;
+  margin-top: 8px;
 }
 .people-list .status {
   color: #92959E;
 }
+
+.logOut{
+  text-align: center;
+  text-transform: uppercase;
+}
+.group{
+  text-align: center;
+  text-transform: uppercase;
+}
+
 a{
   text-decoration: none;
   color :#fff;
@@ -122,6 +137,7 @@ a{
 
 .chat {
   width: 730px;
+  height  :auto;
   float: left;
   background: #F2F5F8;
   border-top-right-radius: 5px;
@@ -174,7 +190,7 @@ a{
 .chat .chat-history .message {
   color: white;
   padding: 18px 20px;
-  line-height: 26px;
+  line-height: 12px;
   font-size: 16px;
   border-radius: 7px;
   margin-bottom: 30px;
@@ -304,18 +320,41 @@ color : white;
 font-weight: 700;
 }
 
-usernames{
+#usernames{
   color : #fff;
 }
 
-#logOut{
-  text-align: center;
-  text-transform: uppercase;
-}
+
 #logout_btn{
   border: none;
   cursor: pointer;
   font-weight: bold;
   text-transform: uppercase;
   font-size : 16px;
+}
+#group_btn{
+  border: none;
+  cursor: pointer;
+  font-family: 'Rockwell';
+  /*font-weight: bold;*/
+  /*text-transform: uppercase;*/
+  font-size : 14px;
+}
+#send_btn{
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size : 16px;
+}
+
+
+#send{
+  text-align: center;
+  text-transform: uppercase;
+}
+
+
+#friends{
+  text-align: center;
 }

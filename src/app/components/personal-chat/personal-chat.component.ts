@@ -13,13 +13,18 @@ import { ChatHistoryService } from '../../services/chatHistory.service';
   styleUrls: ['./personal-chat.component.css']
 })
 export class PersonalChatComponent implements OnInit {
-  links: Array<{ name: string, path: string }> = [];
 	userNames : any = []
   Users : any = []
+  Groups : any = []
   private username
+  private groupId
   private messageData : any = []
+  private chatData : any = []
   private isTyping = false; 
   private message
+  private group = { groupName: '',
+                    groupMembers: ['']
+                  }
   email
   name
   chatroom
@@ -34,11 +39,12 @@ export class PersonalChatComponent implements OnInit {
       this.chatService.receivedTyping().subscribe(bool => {
       this.isTyping = bool.isTyping;
       })
-    // });
-        //  this.chatService.newMessageReceived().subscribe(data => {
-        // this.messageData.push(data);
-        // this.isTyping = false;
-        // });
+     this.chatService.newMessageReceived().subscribe(data => {
+      console.log("data received", data);
+      this.isTyping = false;
+      this.messageData.push(data);
+      console.log("message data updated>>", this.messageData);
+      })
    
 
  }
@@ -62,7 +68,11 @@ export class PersonalChatComponent implements OnInit {
       that.UserListService.Users.splice(index,1);
       this.Users = that.UserListService.Users;
       // console.log("Users from personal chat@@@@@@@@@", this.Users);
-      })
+    })
+    this.userService.getAllGroups().subscribe(groups =>{
+      this.Groups = groups
+      console.log("getAllGroups", groups);
+    })
   }
 
   chatHistory(user : any){
@@ -73,31 +83,38 @@ export class PersonalChatComponent implements OnInit {
       if (currentUser.username < this.username) {
         this.chatroom = currentUser.username.concat(this.username);
       } else {
-        this.chatroom = this.username.concat(currentUser.username);
-        
+        this.chatroom = this.username.concat(currentUser.username);        
       }
+      // console.log("this.chatroom>>>", this.chatroom)
+      this.chatService.joinRoom({user: this.userService.getLoggedInUser().username, room: this.chatroom});    
+      this.userService.getChatHistory(this.chatroom).subscribe(chats =>{
+      console.log("chats from api>>>>>>", chats)
+      this.ChatHistoryService.Chats = chats[0].messages  
+      console.log("chats from api>>>>>>",this.ChatHistoryService.Chats)
+      this.messageData = this.ChatHistoryService.Chats
+      console.log("message data", this.messageData);
+      })
+      this.messageData = [];
+ 
+  }
+  groupChatHistory(group : any){
+    // console.log("hitting chatHistory @@@@@@", user);
+      // this.groupId = group._id
+      console.log("hitting group$$$$$$$$$$$", group);      
+      const currentUser = this.userService.getLoggedInUser();
+      this.chatroom = group._id
       console.log("this.chatroom>>>", this.chatroom)
       this.chatService.joinRoom({user: this.userService.getLoggedInUser().username, room: this.chatroom});    
       this.userService.getChatHistory(this.chatroom).subscribe(chats =>{
       console.log("chats from api>>>>>>", chats)
-      this.ChatHistoryService.Chats = chats  
-      this.messageData = this.ChatHistoryService.Chats.map(({messages}) => messages)
+      this.ChatHistoryService.Chats = chats[0].messages  
+      console.log("chats from api>>>>>>",this.ChatHistoryService.Chats)
+      this.messageData = this.ChatHistoryService.Chats
+      console.log("message data", this.messageData);
       })
-      this.chatService.newMessageReceived().subscribe(data => {
-      console.log("data received", data);
-      this.isTyping = false;
-      this.messageData[0].push(data);
-      console.log("message data from service >>>>", this.messageData[0])
-      console.log("chats from service>>>>>>>>>", this.ChatHistoryService.Chats)
-
-        // this.messageData[0] = [];
-        });
-    
-     
-
-   
-   
-  }
+      this.messageData = [];
+ 
+  }  
 
 
   sendMessage() {
@@ -108,6 +125,23 @@ export class PersonalChatComponent implements OnInit {
 
   typing() {
       this.chatService.typing({room: this.chatroom, user: this.userService.getLoggedInUser().username});
+  }
+
+  createGroup(group  :any){
+    console.log("hitting createGroup" , this.group);
+    this.userService.createGroupApi(this.group).subscribe(data=>
+    {  
+      console.log("data from createGroupApi>>>", data);
+      if(data.group_already_exists){
+        console.log("data from createGroupApi>>>", data.group_already_exists);
+        alert("Group Already Exists");
+
+        }
+      else{  
+      alert("Group Successfully Created");
+      location.reload(true);  
+      }
+    })
   }
 
   logOut()
