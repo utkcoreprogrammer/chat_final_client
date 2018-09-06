@@ -24,9 +24,9 @@ export class UserService {
     return this.http.get<any>(`${this.baseUrl}/user/getAllUsers`)
   }  
 
-  getAllGroups(){
-    console.log("inside getAllUsers");
-    return this.http.get<any>(`${this.baseUrl}/user/getAllGroups`)
+  getAllGroups(username : any){
+    console.log("inside getAllGroups", username);
+    return this.http.get<any>(`${this.baseUrl}/user/getAllGroups/${username}`)
   } 
    
   getLoggedInUser() {
@@ -47,9 +47,6 @@ export class UserService {
   console.log("inside logout api$$$$$$$$$", group);       
   return this.http.post<any>(`${this.baseUrl}/user/group`, group);       
   }
-
-
-
 
   getChatHistory(room : any ){
   return this.http.get<any>(`${this.baseUrl}/chatroom/${room}`);        

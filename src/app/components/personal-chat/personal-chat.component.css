@@ -56,6 +56,7 @@ th,td{
 }
 
 body {
+  height :auto;
   background: #C5DDEB;
   font: 14px/20px;
   padding: 40px 0;
@@ -73,17 +74,17 @@ body {
 .people-list {
   width: 260px;
   float: left;
+  overflow-y: scroll;
 
 }
-.people-list .people-header{
-  padding-top: 5px;
+ .people-header{
   text-align: center;
 
 }
 .people-list .search {
   padding: 20px;
 }
-.people-list input {
+/*.people-list input {
   border-radius: 3px;
   border: none;
   padding: 14px;
@@ -91,7 +92,7 @@ body {
   background: #6A6C75;
   width: 90%;
   font-size: 14px;
-}
+}*/
 .people-list .fa-search {
   position: relative;
   left: -25px;
@@ -136,7 +137,7 @@ a{
 }
 
 .chat {
-  width: 730px;
+  width: 805px;
   height  :auto;
   float: left;
   background: #F2F5F8;
@@ -159,6 +160,11 @@ a{
 .chat .chat-header .chat-with {
   font-weight: bold;
   font-size: 16px;
+}
+
+.chat .chat-header .chat-with span{
+  font-family: 'Rockwell';
+  font-size: 14px;
 }
 .chat .chat-header .chat-num-messages {
   color: #92959E;

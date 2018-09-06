@@ -17,18 +17,27 @@ export class PersonalChatComponent implements OnInit {
   Users : any = []
   Groups : any = []
   private username
+  private currentUser
+  private single_chat : boolean = false;
+  private group_chat : boolean = false;  
   private groupId
   private messageData : any = []
   private chatData : any = []
   private isTyping = false; 
+  private isGroupTyping = false; 
   private message
-  private group = { groupName: '',
+  private groupName
+  private groupMembers
+  private group = { 
+                    groupName: '',
                     groupMembers: ['']
                   }
   email
   name
   chatroom
   currentUserName
+  user
+
   constructor(private router : Router, 
     private route : ActivatedRoute, 
     private userService : UserService, 
@@ -39,6 +48,13 @@ export class PersonalChatComponent implements OnInit {
       this.chatService.receivedTyping().subscribe(bool => {
       this.isTyping = bool.isTyping;
       })
+
+      this.chatService.receivedGroupTyping().subscribe(bool => {
+      console.log("bool<<<<<<<", bool);
+      this.isGroupTyping = bool.isTyping
+      this.user = bool.user
+      })
+
      this.chatService.newMessageReceived().subscribe(data => {
       console.log("data received", data);
       this.isTyping = false;
@@ -56,9 +72,10 @@ export class PersonalChatComponent implements OnInit {
 
       let that = this;
       that.UserListService.Users = users
-      let currentUser = this.userService.getLoggedInUser();
-      this.email = currentUser.email;
-      this.currentUserName = currentUser.username;
+      this.currentUser = this.userService.getLoggedInUser();
+      console.log("current user ngonit", this.currentUser)
+      this.email = this.currentUser.email;
+      this.currentUserName = this.currentUser.username;
       let index= that.UserListService.Users.findIndex(x=>
       {
         return x.email == this.email
@@ -69,21 +86,26 @@ export class PersonalChatComponent implements OnInit {
       this.Users = that.UserListService.Users;
       // console.log("Users from personal chat@@@@@@@@@", this.Users);
     })
-    this.userService.getAllGroups().subscribe(groups =>{
+
+    this.userService.getAllGroups(this.userService.getLoggedInUser().username).subscribe(groups =>{
       this.Groups = groups
       console.log("getAllGroups", groups);
     })
   }
 
-  chatHistory(user : any){
+  singlechatHistory(user : any){
     // console.log("hitting chatHistory @@@@@@", user);
+    console.log("current user single chat", this.currentUser)
+      this.single_chat = true;
+      this.group_chat = false;
+      this.groupName = '';
+      this.groupMembers = [];
       this.username = user.username
       console.log("index found$$$$$$$$$$$", this.username);      
-      const currentUser = this.userService.getLoggedInUser();
-      if (currentUser.username < this.username) {
-        this.chatroom = currentUser.username.concat(this.username);
+      if (this.currentUser.username < this.username) {
+        this.chatroom = this.currentUser.username.concat(this.username);
       } else {
-        this.chatroom = this.username.concat(currentUser.username);        
+        this.chatroom = this.username.concat(this.currentUser.username);        
       }
       // console.log("this.chatroom>>>", this.chatroom)
       this.chatService.joinRoom({user: this.userService.getLoggedInUser().username, room: this.chatroom});    
@@ -95,20 +117,27 @@ export class PersonalChatComponent implements OnInit {
       console.log("message data", this.messageData);
       })
       this.messageData = [];
+
+
  
   }
-  groupChatHistory(group : any){
-    // console.log("hitting chatHistory @@@@@@", user);
-      // this.groupId = group._id
-      console.log("hitting group$$$$$$$$$$$", group);      
-      const currentUser = this.userService.getLoggedInUser();
-      this.chatroom = group._id
+  groupChatHistory(item : any){
+ 
+      this.group_chat = true;
+      this.single_chat = false;
+      let index = item.groupMembers.indexOf(this.currentUser.username);
+      item.groupMembers.splice(index,1);
+      this.groupName = item.groupName;
+      this.groupMembers = item.groupMembers;
+      // console.log("hitting group$$$$$$$$$$$", group);      
+      // const currentUser = this.userService.getLoggedInUser();
+      this.chatroom = item._id
       console.log("this.chatroom>>>", this.chatroom)
       this.chatService.joinRoom({user: this.userService.getLoggedInUser().username, room: this.chatroom});    
       this.userService.getChatHistory(this.chatroom).subscribe(chats =>{
       console.log("chats from api>>>>>>", chats)
       this.ChatHistoryService.Chats = chats[0].messages  
-      console.log("chats from api>>>>>>",this.ChatHistoryService.Chats)
+      console.log("this.ChatHistoryService.Chats",this.ChatHistoryService.Chats)
       this.messageData = this.ChatHistoryService.Chats
       console.log("message data", this.messageData);
       })
@@ -127,7 +156,15 @@ export class PersonalChatComponent implements OnInit {
       this.chatService.typing({room: this.chatroom, user: this.userService.getLoggedInUser().username});
   }
 
+  groupTyping() {
+      this.chatService.groupTyping({room: this.chatroom, user: this.userService.getLoggedInUser().username});
+  }
+
+
   createGroup(group  :any){
+    // const currentUser = this.userService.getLoggedInUser();
+    console.log("current user create group", this.currentUser)
+    this.group.groupMembers.push(this.currentUser.username);
     console.log("hitting createGroup" , this.group);
     this.userService.createGroupApi(this.group).subscribe(data=>
     {  
