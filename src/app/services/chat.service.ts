@@ -58,6 +58,7 @@ export class ChatService {
   newMessageReceived() {
     const observable = new Observable<{ user: String, message: String}>(observer => {
       this.socket.on('new message', (data) => {
+        this.socket.emit("hasTyped", )
         observer.next(data);
       });
 
@@ -85,9 +86,8 @@ export class ChatService {
   }
 
     receivedGroupTyping() {
-    const observable = new Observable<{ user : String, isTyping: boolean}>(observer => {
+    const observable = new Observable<{ user : Array<string>, isTyping: boolean}>(observer => {
       this.socket.on('groupTyping', (data) => {
-        console.log("data from groupTyping !#@#@#@#@##", data);
         observer.next(data);
         
       });

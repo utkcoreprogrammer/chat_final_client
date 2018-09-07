@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
@@ -23,8 +24,8 @@ export class PersonalChatComponent implements OnInit {
   private groupId
   private messageData : any = []
   private chatData : any = []
-  private isTyping = false; 
-  private isGroupTyping = false; 
+  private isTyping :boolean = false; 
+  private isGroupTyping : boolean = false; 
   private message
   private groupName
   private groupMembers
@@ -36,7 +37,7 @@ export class PersonalChatComponent implements OnInit {
   name
   chatroom
   currentUserName
-  user
+  private user : any = [];
 
   constructor(private router : Router, 
     private route : ActivatedRoute, 
@@ -45,19 +46,45 @@ export class PersonalChatComponent implements OnInit {
     private UserListService: UserListService,
     private authService : AuthService,
     private ChatHistoryService  :ChatHistoryService) { 
+
+      this.chatService.receivedGroupTyping().subscribe(bool => {
+      console.log("bool<<<<<<<", bool);
+      // if(bool.isTyping){
+          this.isGroupTyping = bool.isTyping
+          while(!this.user.includes(bool.user)){
+              this.user.push(bool.user);
+          }
+          // else{
+          //   console.log("do nothing");
+          // }
+       
+ 
+   
+        // if(this.user.includes(bool.user)){
+        //   let index = this.user.findIndex(x =>{
+        //     x = bool.user
+        //   })
+        //   console.log("index of>>>>>", index);
+        //  this.user.splice(index,1);
+        // }
+      })
+
       this.chatService.receivedTyping().subscribe(bool => {
       this.isTyping = bool.isTyping;
       })
 
-      this.chatService.receivedGroupTyping().subscribe(bool => {
-      console.log("bool<<<<<<<", bool);
-      this.isGroupTyping = bool.isTyping
-      this.user = bool.user
-      })
+
 
      this.chatService.newMessageReceived().subscribe(data => {
-      console.log("data received", data);
+       console.log("data from new message received" , data);
+       // let msgUser = data.user;
+       //  if(this.user.includes(data.user)){
+       //     this.user.splice(this.user.indexOf(data.user), 1);   
+       //    }
       this.isTyping = false;
+      this.isGroupTyping = false;
+      // this.user = [];
+
       this.messageData.push(data);
       console.log("message data updated>>", this.messageData);
       })
