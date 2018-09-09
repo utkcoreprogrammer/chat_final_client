@@ -38,6 +38,7 @@ export class PersonalChatComponent implements OnInit {
   chatroom
   currentUserName
   private user : any = [];
+  private typingUser : any = [];
 
   constructor(private router : Router, 
     private route : ActivatedRoute, 
@@ -47,47 +48,38 @@ export class PersonalChatComponent implements OnInit {
     private authService : AuthService,
     private ChatHistoryService  :ChatHistoryService) { 
 
+      this.chatService.receivedTyping().subscribe(bool => {
+        this.isTyping = bool.isTyping;
+        })
+
       this.chatService.receivedGroupTyping().subscribe(bool => {
       console.log("bool<<<<<<<", bool);
-      // if(bool.isTyping){
-          this.isGroupTyping = bool.isTyping
-          while(!this.user.includes(bool.user)){
-              this.user.push(bool.user);
+      this.isGroupTyping = bool.isTyping;
+       let index  = this.user.includes(bool.user); 
+       console.log('index1>>>>>>>>>', index)
+       if(!index){
+       this.user.push(bool.user);
+       }
+       else{
+        console.log("inside else");
+       }
+      })
+      this.chatService.newMessageReceived().subscribe(data => {
+        this.isTyping = false;
+        console.log("data from new message received" , data.user);
+        let value  = this.user.includes(data.user); 
+        if(value){
+         this.user.splice(this.user.indexOf(data.user), 1); 
+        }
+          if(this.user.length == 0){
+            this.isGroupTyping = false;         
           }
-          // else{
-          //   console.log("do nothing");
-          // }
-       
- 
-   
-        // if(this.user.includes(bool.user)){
-        //   let index = this.user.findIndex(x =>{
-        //     x = bool.user
-        //   })
-        //   console.log("index of>>>>>", index);
-        //  this.user.splice(index,1);
-        // }
-      })
-
-      this.chatService.receivedTyping().subscribe(bool => {
-      this.isTyping = bool.isTyping;
-      })
+       this.messageData.push(data);
+       console.log("message data updated>>", this.messageData);
+       })
 
 
-
-     this.chatService.newMessageReceived().subscribe(data => {
-       console.log("data from new message received" , data);
-       // let msgUser = data.user;
-       //  if(this.user.includes(data.user)){
-       //     this.user.splice(this.user.indexOf(data.user), 1);   
-       //    }
-      this.isTyping = false;
-      this.isGroupTyping = false;
-      // this.user = [];
-
-      this.messageData.push(data);
-      console.log("message data updated>>", this.messageData);
-      })
+  
    
 
  }

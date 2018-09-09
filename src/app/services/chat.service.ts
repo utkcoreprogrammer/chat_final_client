@@ -86,7 +86,7 @@ export class ChatService {
   }
 
     receivedGroupTyping() {
-    const observable = new Observable<{ user : Array<string>, isTyping: boolean}>(observer => {
+    const observable = new Observable<{ user : String, isTyping: boolean}>(observer => {
       this.socket.on('groupTyping', (data) => {
         observer.next(data);
         

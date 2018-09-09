@@ -65,7 +65,11 @@
           </div>
 
           <div class="chat-about" *ngIf = "group_chat">
-            <div class="chat-with">{{ groupName }}<span> ({{groupMembers}} are other members) </span><span><i *ngIf = "isGroupTyping"><div *ngFor="let item of user">{{item}}</div>is typing </i></span></div>
+            <div class="chat-with">{{ groupName }}<span> ({{groupMembers}} are other members) </span>
+              <span><i *ngIf = "isGroupTyping">
+                <div *ngFor="let item of user">{{item}}</div>
+                is typing </i></span>
+            </div>
             
           </div>
         </div> 
