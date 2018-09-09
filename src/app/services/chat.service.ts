@@ -38,6 +38,12 @@ export class ChatService {
       that.UserListService.Users[index] = offlineUser
       // console.log("DAta updated offline in User List service >>>>>>>>>",that.UserListService.Users)
       })
+      
+      this.socket.on("New_User_Registered", (newUser)=>
+      {
+        console.log("newUser>>", newUser);
+        that.UserListService.Users.push(newUser);
+      })
 
       })
       

@@ -11,7 +11,7 @@
             
             <ul class="list">
               <li class="clearfix" *ngFor="let user of Users">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+                <img src="../../assets/images/chat_avatar.jpg" alt="avatar" />
                 <div class="about">
                   <div class="name">
                     <a id = "usernames" (click) = "singlechatHistory(user)"> {{ user.username }} </a>
@@ -37,7 +37,7 @@
        
               <ul class="list">
                 <li class="clearfix" *ngFor="let item of Groups">
-                  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+                  <img src="../../assets/images/chat_avatar.jpg" alt="avatar" />
                   <div class="about">
                     <div class="name">
                       <a id = "usernames" (click) = "groupChatHistory(item)"> {{ item.groupName }} </a>
